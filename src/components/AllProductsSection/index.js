@@ -20,10 +20,18 @@ class AllProductsSection extends Component {
         Authorization: `Bearer ${jwtToken}`,
       },
     }
-    const productsUrl = 'http://apis.ccbp.in/products'
+    const productsUrl = 'https://apis.ccbp.in/products'
     const response = await fetch(productsUrl, options)
-    const jsonData = await response.json()
-    console.log(jsonData)
+    if(response.ok===true){
+      const data = response.json();
+      const updatedData = data.map(product =>({
+        id:product.id,
+        imageUrl:product.image_url,
+        price:product.price,
+        brand:product.brand,
+        title:product.title
+      }))
+      console.log(updatedData)
   }
 
   renderProductsList = () => {
